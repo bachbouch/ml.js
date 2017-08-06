@@ -1,0 +1,30 @@
+{
+  "name": "ml.js",
+  "version": "0.0.1",
+  "description": "Machine Learning made with Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bachbouch/ml.js.git"
+  },
+  "keywords": [
+    "ml",
+    "js",
+    "machinelearning",
+    "linear",
+    "regression",
+    "logistic",
+    "regression",
+    "deep",
+    "learning"
+  ],
+  "author": "Sam Bouguerra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bachbouch/ml.js/issues"
+  },
+  "homepage": "https://github.com/bachbouch/ml.js#readme"
+}
