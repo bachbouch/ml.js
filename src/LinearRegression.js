@@ -10,6 +10,8 @@ const LinearRegression = function() {
         for (let i = 0; i < len; i++) {
             let t = (y[i] - activation(thetas, x[i]));
             totalError += t * t;
+            if (totalError > 1)
+                return totalError;
         }
         return totalError / (2 * len);
     };
@@ -23,13 +25,28 @@ const LinearRegression = function() {
         return sum;
     };
 
+    let len,
+        len_,
+        x_len,
+        gradients = [];
+
 
     const stepGradient = (X, Y, thetas, learningRate = LEARNING_RATE) => {
 
-        let len = X.length,
+        // console.time('test'); 
+        // console.timeEnd('test');
+        // 	var g_counter = 0;
+        //     var len,
+        //         len_,
+        //         x_len,
+        //         gradients = [];
+        //             len = X.length;
+        //             len_ = 1 / len;
+        // 			x_len = X[0].length;
+
+        len = X.length,
             len_ = 1 / len,
-            x_len = X[0].length,
-            gradients = [];
+            x_len = X[0].length;
 
 
         for (let i = 0; i < x_len; i++) {
@@ -48,11 +65,12 @@ const LinearRegression = function() {
             thetas[j] -= (learningRate * gradients[j]);
         }
         // console.log(thetas)
-        return thetas;
+        // return thetas;
     };
 
+
     return {
-        converge: (X, Y, maxIterations = MAX_ITERATIONS) => {
+        converge: (X, Y, learningRate = LEARNING_RATE, maxIterations = MAX_ITERATIONS) => {
 
             let thetas = [];
             for (let i = 0; i < X[0].length + 1; i++)
@@ -65,26 +83,26 @@ const LinearRegression = function() {
                 X[i].push(1);
 
 
-
-            LEARNING_RATE = 1 / Math.pow(10, (len * X[0].length).toString().split("").length - 1);
+            if (learningRate == LEARNING_RATE)
+                LEARNING_RATE = 1 / Math.pow(10, (len * X[0].length).toString().split("").length - 1);
+            else
+                LEARNING_RATE = learningRate;
 
             let count_check = Math.max(10, Math.pow(10, (len * X[0].length).toString().split("").length - 3));
-
-            do {
+            let error = 0;
+            while (count < maxIterations) {
                 count++;
-                thetas = stepGradient(X, Y, thetas);
+                stepGradient(X, Y, thetas);
                 if (count % count_check == 0) {
-                    let error = computeError(thetas, X, Y);
-                    // console.log(count, error)
-                    // return;
-                    if (error < 0.0000001)
+                    error = computeError(thetas, X, Y);
+                    if (error < 0.01)
                         return thetas.map(x => x.toFixed(4));
                     if (error > 9999999)
                         return console.log("INFINITY ERROR ")
                 }
 
             }
-            while (count < maxIterations)
+
             return console.log("Maximized the number of iterations without conversion");
         }
     };

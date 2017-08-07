@@ -3,8 +3,8 @@ import LinearRegression from './LinearRegression';
 
 
 let
-    num_features = 100,
-    num_samples = 100,
+    num_features = 10,
+    num_samples = 10000,
     thetas = [], //[2.289, 11.788, 23.2, 1.4, 45.4, 3.5, 65.2, 12.5, 6, 12.4, 7.3],
     x = [],
     y = [];
@@ -30,6 +30,6 @@ for (let i = 0; i < num_samples; i += 1) {
 
 }
 
-console.time('test');
+console.time('tester');
 console.log(LinearRegression.converge(x, y));
-console.timeEnd('test');
+console.timeEnd('tester');
